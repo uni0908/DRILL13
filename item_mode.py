@@ -25,6 +25,7 @@ class ItemWindow:
         if (self.visible and event.type == SDL_KEYDOWN and
                 event.key in choices):
             self.boy.ball_size = choices[event.key]
+            self.visible = False
             return True
         return False
 
