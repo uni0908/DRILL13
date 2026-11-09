@@ -3,7 +3,7 @@ import os
 
 from pico2d import (draw_rectangle, get_canvas_height, get_canvas_width,
                     load_font, load_image)
-from sdl2 import SDL_KEYDOWN, SDLK_i
+from sdl2 import SDL_KEYDOWN, SDLK_i, SDLK_0, SDLK_1, SDLK_2
 
 
 class ItemWindow:
@@ -20,6 +20,11 @@ class ItemWindow:
         if event.type == SDL_KEYDOWN and event.key == SDLK_i:
             if not getattr(event, 'repeat', False):
                 self.visible = not self.visible
+            return True
+        choices = {SDLK_0: None, SDLK_1: 21, SDLK_2: 41}
+        if (self.visible and event.type == SDL_KEYDOWN and
+                event.key in choices):
+            self.boy.ball_size = choices[event.key]
             return True
         return False
 
