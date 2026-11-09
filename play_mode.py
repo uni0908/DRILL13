@@ -5,6 +5,7 @@ import title_mode
 import pause_mode
 from boy import Boy
 from grass import Grass
+from item_mode import ItemWindow
 
 
 def handle_events():
@@ -20,15 +21,17 @@ def handle_events():
                 game_framework.push_mode(pause_mode)
                 return
         else:
-            boy.handle_event(event)
+            if not item_window.handle_event(event):
+                boy.handle_event(event)
 
 
 
 def init():
-    global boy
+    global boy, item_window
 
 
     boy = Boy()
+    item_window = ItemWindow(boy)
     game_world.add_oject(boy)
 
     grass = Grass()
@@ -43,6 +46,7 @@ def update():
 def render():
     clear_canvas()
     game_world.render()
+    item_window.draw()
     update_canvas()
 
 def finish():
